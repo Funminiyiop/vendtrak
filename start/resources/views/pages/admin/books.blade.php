@@ -38,6 +38,10 @@
                         <div class="table-responsive">
                             <h3>Books</h3>
                             
+                            <div class="container text-right">
+                                <a href="{{ url('/addbook') }}" class="btn">Add New Book</a>
+                            </div>
+
                             <table class="table table-bordered table-striped table-order-history">
                                 <thead>
                                     <tr>
@@ -46,6 +50,8 @@
                                         <th scope="col">Author</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Stock</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
@@ -67,7 +73,11 @@
                                         <td>{{ $bbook->availableQty }}</td>
                                         <td>
                                             <a href="{{ url('/viewbook/'.$bbook->book_id) }}"><b>View</b></a>
-                                            <a href="{{ url('/editbook/'.$bbook->book_id) }}"><b class="ml-1 mr-1">Edit</b></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('/editbook/'.$bbook->book_id) }}"><b>Edit</b></a>
+                                        </td>
+                                        <td>
                                             <a href="{{ url('/deletebook/'.$bbook->book_id) }}"><b>Delete</b></a>
                                         </td>
                                     </tr>

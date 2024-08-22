@@ -40,75 +40,79 @@
                         <div class="clearfix"></div>
                         
 
-                        <div class="row">
+                        @if($cartDetails)
 
-                            <div class="col-md-4 mt-2 mt-md-0">
-                                <div class="card card--grey">
-                                    <div class="card-body">
-                                        <h2>PAYMENT METHOD</h2>
-                                        <div class="clearfix">
-                                            <input id="formcheckoutRadio4" value="" name="radio2" type="radio" class="radio" checked="checked"> 
-                                            <label for="formcheckoutRadio4">Pay with Credit Card (Paystack)</label>
+
+                        <div>
+
+                        
+                            <form class="form-horizontal"  method="post" action="{{ url('/placeorder') }}" >
+                                {{ csrf_field() }} 
+                                
+                                <div class="col-md-12 mt-2 mt-md-0">
+                                    <div class="card card--grey">
+                                        <div class="card-body">
+                                            <h4>Payment Option</h4>
+                                            <div class="row">
+                                                <div class="col-md-6 mt-2 mt-md-0"">
+                                                    <input id="paynow" type="radio" checked="checked" name="paymentchoice" value="paynow" class="radio" > 
+                                                    <label for="paynow">{{ __('Pay Now (with Paystack)') }}</label>
+                                                </div>
+                                                <div class="col-md-6 mt-2 mt-md-0"">
+                                                    <input id="paylater" type="radio" name="paymentchoice" value="paylater" class="radio"> 
+                                                    <label for="paylater">{{ __('Pay Later') }}</label>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="clearfix">
-                                            <input id="formcheckoutRadio5" value="" name="radio2" type="radio" class="radio"> 
-                                            <label for="formcheckoutRadio5">Pay Later</label>
+                                    </div>
+                                    <div class="mt-2"></div>
+                                </div>
+
+                                <div class="col-md-12 mt-2 mt-md-0">
+                                    <!-- h2 class="custom-color">ORDER SUMMARY</h2 -->
+                                    <div class="cart-table cart-table--sm">
+                                        <div class="cart-table-prd cart-table-prd-headings d-none d-lg-table">
+                                            <div class="cart-table-prd-name"><b>Item</b></div>
+                                            <div class="cart-table-prd-qty"><b>Qty</b></div>
+                                            <div class="cart-table-prd-price"><b>Price</b></div>
+                                            <div class="cart-table-prd-price"><b>Sub-total</b></div>
+                                        </div>
+
+                                        <?php foreach($cartDetails as $carD){ ?>
+                                        <div class="cart-table-prd">
+                                            <div class="cart-table-prd-name">
+                                                <h2><a href="#">{{ $carD['title'] }}</a></h2>
+                                            </div>
+                                            <div class="cart-table-prd-qty">{{$carD['qty']}}</div>
+                                            <div class="cart-table-prd-price">N{{ number_format($carD['price'], 2) }}</div>
+                                            <div class="cart-table-prd-price">N{{ number_format($carD['subtotal'], 2) }}</div>
                                         </div>
                                         
+                                        <?php } ?>
+                                        
                                     </div>
-                                </div>
-                                <div class="mt-2"></div>
-                            </div>
 
-                            <div class="col-md-8 mt-2 mt-md-0">
-                                <!-- h2 class="custom-color">ORDER SUMMARY</h2 -->
-                                <div class="cart-table cart-table--sm">
-                                    <div class="cart-table-prd cart-table-prd-headings d-none d-lg-table">
-                                        <div class="cart-table-prd-image"></div>
-                                        <div class="cart-table-prd-name"><b>ITEM</b></div>
-                                        <div class="cart-table-prd-qty"><b>QTY</b></div>
-                                        <div class="cart-table-prd-price"><b>PRICE</b></div>
+                                    <div class="card-total-sm">
+                                        <div class="float-right">Total <span class="card-total-price">N{{ number_format($cartTotal, 2) }}</span></div>
                                     </div>
-                                    <div class="cart-table-prd">
-                                        <div class="cart-table-prd-image"><a href="#"><img src="images/products/xsmall/product-05.jpg" alt=""></a></div>
-                                        <div class="cart-table-prd-name">
-                                            <h2><a href="#">Checkered shirt</a></h2>
-                                        </div>
-                                        <div class="cart-table-prd-qty"><b>1</b></div>
-                                        <div class="cart-table-prd-price"><b>$ 75.00</b></div>
-                                    </div>
-                                    <div class="cart-table-prd">
-                                        <div class="cart-table-prd-image"><a href="#"><img src="images/products/xsmall/product-02.jpg" alt=""></a></div>
-                                        <div class="cart-table-prd-name">
-                                            <h2><a href="#">Long top with print</a></h2>
-                                        </div>
-                                        <div class="cart-table-prd-qty"><b>1</b></div>
-                                        <div class="cart-table-prd-price"><b>$ 20.00</b></div>
-                                    </div>
-                                    <div class="cart-table-prd">
-                                        <div class="cart-table-prd-image"><a href="#"><img src="images/products/xsmall/product-14.jpg" alt=""></a></div>
-                                        <div class="cart-table-prd-name">
-                                            <h2><a href="#">Knitted sweater</a></h2>
-                                        </div>
-                                        <div class="cart-table-prd-qty"><b>1</b></div>
-                                        <div class="cart-table-prd-price"><b>$ 199.00</b></div>
-                                    </div>
+                                    <div class="mt-2"></div>
                                 </div>
-                                <div class="card-total-sm">
-                                    <div class="float-right">Subtotal <span class="card-total-price">$ 294.00</span></div>
-                                </div>
-                                <div class="mt-2"></div>
-                            </div>
 
-                            <div class="col-md-12 col-lg-12">
-                                <div class="clearfix">
-                                    <button type="submit" class="btn btn--lg w-100">Place Order</button>
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="clearfix">
+                                        <input  type="text" class="form-control" value={{$carD['agent']}} name="agent" hidden/>
+                                        <input  type="text" class="form-control" value={{$carD['customer']}} name="customer" hidden/>
+                                        <button type="submit" class="btn btn--lg w-100">Place Order</button>
+                                    </div>
                                 </div>
-                            </div>
+                                        
+                            </form>
 
                         </div>
 
 
+                        @endif
+                        
                     </div>
                 </div>
             </div>

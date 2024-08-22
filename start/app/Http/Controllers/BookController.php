@@ -103,7 +103,7 @@ class BookController extends Controller
         $userAccess = $robot->getAccessLevel();  
         // only admin and master admin can view page        
 		if($userAccess === 'MasterAdmin' || $userAccess === 'Admin') { 
-            return view('pages.addbook');
+            return view('pages.admin.addbook');
         }  
         Session::flash('message', 'Attemp not allowed!'); return back();
     }

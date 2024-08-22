@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="col-md-9 aside">
-                        <h3>Edit Book</h3>
+                        <h3>Add Book</h3>
                         
                         <div class="card mt-3">
                             <div class="card-body">
@@ -45,36 +45,39 @@
 
                                     <div class="container">
                                         <div class="row col-lg-12">
-                                            <div class="col-lg-6">
-                                                <label style="margin-top: 10px; ">Book Title *</label>
-                                                <input  type="text" hidden value="{{ $book->book_id }}" name="BookID"/>
-                                                <input  type="text" class="form-control" name="BookTitle" value="{{ $book->title }}"/>
+                                            <div class="col-lg-4">
+                                                <label style="margin-top: 10px; ">Book ID *</label>
+                                                <input  type="text" class="form-control" name="BookID" placeholder="No space, no symbol"/>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
+                                                <label style="margin-top: 10px; ">Book Title *</label>
+                                                <input  type="text" class="form-control" name="BookTitle"/>
+                                            </div>
+                                            <div class="col-lg-4">
                                                 <label style="margin-top: 10px; ">Book Author *</label>
-                                                <input  type="text" class="form-control" name="BookAuthor" value="{{ $book->author }}"/>
+                                                <input  type="text" class="form-control" name="BookAuthor"/>
                                             </div>
                                         </div>
 
                                         <div class="row col-lg-12">
                                             <div class="col-lg-12">
                                                 <label style="margin-top: 10px; ">Book Description *</label>
-                                                <input  type="textarea" class="form-control" name="BookDescription" value="{{ $book->description }}"/>
+                                                <input  type="textarea" class="form-control" name="BookDescription"/>
                                             </div>
                                         </div>
 
                                         <div class="row col-lg-12">
                                             <div class="col-lg-4">
                                                 <label style="margin-top: 10px; ">Genre *</label>
-                                                <input  type="text" class="form-control" name="BookGenre" value="{{ $book->genre }}"/>
+                                                <input  type="text" class="form-control" name="BookGenre"/>
                                             </div>
                                             <div class="col-lg-4">
                                                 <label style="margin-top: 10px; ">Price *</label>
-                                                <input  type="text" class="form-control" name="BookPrice" value="{{ $book->price }}"/>
+                                                <input  type="text" class="form-control" name="BookPrice"/>
                                             </div>
                                             <div class="col-lg-4">
                                                 <label style="margin-top: 10px; ">Available Quantity *</label>
-                                                <input  type="number" class="form-control" name="BookQty" value="{{ $book->availableQty }}"/>
+                                                <input  type="number" class="form-control" name="BookQty"/>
                                             </div>
                                         </div>
                                         
@@ -83,7 +86,6 @@
                                                 $no1 = rand(2, 50);
                                                 $no2 = rand(2, 50);
                                                 $ans = $no1 + $no2;
-                                                $requestType = "postBookEdit";
                                             ?>
                                             <div style="margin-top: 10px; margin-left: 15px;" class="col-lg-6">
                                                 <label for="qna"><?php echo $no1; ?> + <?php echo $no2; ?> *</label>
@@ -92,7 +94,6 @@
                                                 <input  type="text" class="form-control"  name="qna" placeholder="Enter your answer here" />
                                                 <input type="hidden" name="no1" value="<?php echo $no1; ?>"> 
                                                 <input type="hidden" name="no2" value="<?php echo $no2; ?>"> 
-                                                <input type="hidden" name="requestType" value="<?php echo $requestType; ?>"> 
                                             </div>
                                             <div>
                                                 <div class="col-lg-12">

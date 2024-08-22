@@ -290,7 +290,7 @@ class SaleController extends Controller
                 //$paylink = 'http://localhost/websites/2024/alxProject/pay/'.$reg;
                 //return redirect()->away($paylink); 
                 Session::flash('message', 'Sorry! Our online payment is not available at the moment, please try again later.'); 
-                return redirect('/cart');
+                return redirect('/');
             }
         
             // if payment option is PAY LATER
