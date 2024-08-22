@@ -140,6 +140,7 @@
                                             <th scope="col">Price</th>
                                             <th scope="col">Sub-total</th>
                                             <th scope="col"></th>
+                                            <th scope="col"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -148,12 +149,33 @@
                                         <tr>
                                             <th><?php echo $count+=1; ?></th>
                                             <td>{{ $carD['title'] }}</td>
-                                            <td>{{ $carD['qty'] }}</td>
-                                            <td><span class="color">N{{ number_format($carD['price'], 2) }}</span></td>
+                                            
+                                            <form class="form-horizontal"  method="post" action="{{ url('/updatecart') }}" >
+                                            {{ csrf_field() }}  
+                                            
+                                            <td>
+                                                <input  type="number" min="1"  class="form-control" value={{$carD['qty']}} name="qty"/>
+                                            </td>
+                                            <td>N{{ number_format($carD['price'], 2) }}</td> 
                                             <td>N{{ number_format($carD['subtotal'], 2) }}</td>
                                             <td>
-                                                <a href="product.html" class="icon-pencil"></a> 
-                                                <a href="index.html" class="icon-cross"></a>
+                                                <input  type="text" class="form-control" value={{$carD['agent']}} name="agent" hidden/>
+                                                <input  type="text" class="form-control" value={{$carD['item']}} name="item" hidden/>
+                                                <input  type="text" class="form-control" value={{$carD['customer']}} name="customer" hidden/>
+                                                
+                                                    <button style="width: 25%;" type="submit" class="btn icon-pencil"></button> 
+                                                
+                                            </form>
+                                            </td>
+                                            <td>
+                                            <form class="form-horizontal"  method="post" action="{{ url('/removecartitem') }}" >
+                                            {{ csrf_field() }} 
+                                                <input  type="text" class="form-control" value={{$carD['agent']}} name="agent" hidden/>
+                                                <input  type="text" class="form-control" value={{$carD['item']}} name="item" hidden/>
+                                                <input  type="text" class="form-control" value={{$carD['customer']}} name="customer" hidden/>
+                                                
+                                                    <button style="width: 25%;" type="submit" class="btn icon-cross"></button> 
+                                            </form>
                                             </td>
                                         </tr>
 
@@ -170,8 +192,8 @@
                             <div class="minicart-drop-total">
                                 <div class="float-right">
                                     <span class="minicart-drop-summa">
-                                        <span>Cart Total:</span> 
-                                        <b>N{{ $cartTotal }}</b>
+                                        <span>Total:</span> 
+                                        <b>N{{ number_format($cartTotal, 2) }}</b>
                                     </span>
                                 </div>
                                 <form class="form-horizontal"  method="post" action="{{ url('/checkout') }}" >

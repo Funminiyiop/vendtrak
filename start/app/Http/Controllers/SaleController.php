@@ -181,7 +181,7 @@ class SaleController extends Controller
         }
         */
         Session::flash('message', 'Successful: Cart item updated'); 
-        return redirect('/cart');
+        return redirect('/');
     }
 
     
@@ -205,7 +205,7 @@ class SaleController extends Controller
             // delete from cart.
             $status = $robot->doCartItemRemove(Auth::user()->email, $request->input('customer'), $request->input('item'));
             if($status === 'unsuccessful'){ Session::flash('message', 'Failure: Cart item removal failed'); return redirect('/cart');}
-            Session::flash('message', 'Success: Cart item removed!'); return redirect('/cart'); 
+            Session::flash('message', 'Success: Cart item removed!'); return redirect('/'); 
         }
         Session::flash('message', 'Not Allowed!'); 
         return redirect('/cart');

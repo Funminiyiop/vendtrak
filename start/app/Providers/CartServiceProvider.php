@@ -50,7 +50,7 @@ class CartServiceProvider extends ServiceProvider
                 $cartQty = 0;
             } else {
                 $cartDetails = $cartDetailss;
-                $cartQty = 0;
+                $cartQty = count($cartDetails);
                 foreach ($cartDetails as $item) {
                     $cartTotal += $item['subtotal'];
                 }
@@ -58,7 +58,7 @@ class CartServiceProvider extends ServiceProvider
 
             /*
             
-            dd($cartDetails);
+            dd(count($cartDetails));
             exit;
 
             foreach ($cartDetails as $item) {
