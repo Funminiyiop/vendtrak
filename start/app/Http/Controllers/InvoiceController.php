@@ -44,6 +44,76 @@ class InvoiceController extends Controller
         return view('pages.invoice.invoice')->withInvoice($invoice);
     }
 
+    public function sales()
+    {
+        $robot = new Robot;
+        $au = Auth::user()->toArray()['email'];
+        $userAccess = $robot->getAccessLevel(); 
+        if($userAccess === 'notAllowed') { Session::flash('message', 'Sorry, not allowed!'); return back(); }
+
+        $allsales = $robot->getAllSalesDetailsByAgentID($au);    
+        $salesamt = 0;
+        foreach ($allsales as $salestotal) {
+            $salesamt += $salestotal->total;
+        }    
+        return view('pages.sales.sales')->withAllsales($allsales)->withSalesamt($salesamt);
+    }
+
+
+    public function viewSales()
+    {
+        $robot = new Robot;
+        $au = Auth::user()->toArray()['email'];
+        $userAccess = $robot->getAccessLevel(); 
+        if($userAccess === 'notAllowed') { Session::flash('message', 'Sorry, not allowed!'); return back(); }
+        
+        //$sales = $robot->getAllSalesByAgentID($au); 
+        $detailedSalesData = $robot->getAllSalesDetailsByAgentID($au); 
+        dd($detailedSalesData);
+        exit;
+
+        
+        /*
+
+        //count($sales);
+        for($i = 0; $i < count($sales); $i++) {
+            foreach ($sales as $salesrecord) {     // -agent -invoice -customer
+                
+                $customer = $sales[$i]->buyer_id;
+                $agent = $sales[$i]->rep_id;
+                $invoice = $sales[$i]->invoice_id;
+                $custDetails = $robot->getCustomerDetailsByCustomerID($customer)[0];  
+                $invoiceDetails = $robot->getInvoicesByAgentInvoice($agent, $invoice)->toArray()[0]; 
+                $getItemOrdered = $robot->getSalesItemByInvoiceID($invoice, $agent, $customer)[0]; 
+                $itemOrdered = json_decode($getItemOrdered->items, true);  
+                
+                $salesdata = [	
+                    'date' => $getItemOrdered->sales_date,
+                    'customer_name' => $custDetails->company,
+                    'items' => $itemOrdered,
+                    'amount' => $invoiceDetails->total,
+                    'status' => $getItemOrdered->status, 
+                ];
+            }
+                echo json_encode($salesdata);
+                exit;
+        }
+
+        */
+
+        //dd($allsales);
+        
+        return view('pages.sales.sales')->withAllsales($allsales);
+    }
+
+
+
+
+
+
+
+
+
 
 
     /**

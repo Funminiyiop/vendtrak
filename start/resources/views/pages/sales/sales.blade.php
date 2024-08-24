@@ -36,7 +36,21 @@
 
                     <div class="col-md-9 aside">
                         <div class="table-responsive">
-                            <h3>Invoices</h3>
+                            <div class="col-md-12 row">
+                                <div class="col-md-6"><h3>Invoices</h3></div>
+                                <div class="col-md-6">
+                                    <div class="col-md-12 row">
+                                        <div class="col-md-6">
+                                            <span class="text-left">Total Sales Amount:</span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="text-right"> N{{number_format($salesamt, 2)}}</h4>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
                             
                             <table class="table table-bordered table-striped table-order-history">
                                 <thead>
@@ -44,7 +58,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col"><b>Date</b></th>
                                         <th scope="col"><b>Customer</b></th>
-                                        <th scope="col"><b>Items</b></th>
+                                        <th scope="col"><b>Invoice No.</b></th>
                                         <th scope="col"><b>Amount</b></th>
                                         <th scope="col"><b>Status</b></th>
                                         <th scope="col"></th>
@@ -52,33 +66,29 @@
                                 </thead>
                                 <tbody>
                                     
-                                    <?php 
-                                    
-                                    dd($salesdata);
-                                    exit;
-                                    
-                                    $count = 0; foreach($invoices as $invoice){ ?>
+                                    <?php $count = 0; foreach($allsales as $sales){ ?>
 
                                     <tr>
                                         <th><?php echo $count+=1; ?></th>
-                                        <td>{{$invoice->invoice_date}}</td>
-                                        <td>#{{$invoice->invoice_id}}</td>
-                                        <td>N{{number_format($invoice->total, 2)}}</td>
-                                        <td>{{$invoice->status}}</td>
+                                        <th>{{$sales->sales_date}}</th>
+                                        <th>{{$sales->company}}</th>
+                                        <th>#{{$sales->invoice_id}}</th>
+                                        <th>N{{number_format($sales->total, 2)}}</th>
+                                        <th>{{$sales->status}}</th>
                                         <td>
-                                            <form class="form-horizontal"  method="post" action="{{ url('/viewinvoice') }}" >
+                                            <form class="form-horizontal"  method="post" action="{{ url('/viewsales') }}" >
                                             {{ csrf_field() }} 
-                                                <input  type="text" class="form-control" value={{$invoice->rep_id}} name="agent" hidden/>
-                                                <input  type="text" class="form-control" value={{$invoice->invoice_id}} name="invoice" hidden/>
-                                                <input  type="text" class="form-control" value={{$invoice->buyer_id}} name="customer" hidden/>
+                                                <input  type="text" class="form-control" value={{$sales->rep_id}} name="agent" hidden/>
+                                                <input  type="text" class="form-control" value={{$sales->invoice_id}} name="invoice" hidden/>
+                                                <input  type="text" class="form-control" value={{$sales->buyer_id}} name="customer" hidden/>
                                                 <button type="submit" class="btn">view</button> 
                                             </form>
                                         </td>
                                     </tr>
 
+                                    
                                     <?php } ?>
-                                    
-                                    
+
                                 </tbody>
                             </table>
                         </div>

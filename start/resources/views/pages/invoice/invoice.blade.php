@@ -52,15 +52,15 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <p>
-                                                    <b>VENDtrak</b>
+                                                    <b>Invoice From:</b>
                                                 </p>
-                                                <p>1, Popoola Street,<br>Bodija, Ibadan, Nigeria.</p>
+                                                <p><b>VENDtrak</b> <br> 1, Popoola Street,<br>Bodija, Ibadan, Nigeria.</p>
                                             </div>
                                             <div class="col-md-6">
                                                 <p class="text-right">
-                                                    <b>Invoice to</b>
+                                                    <b>Invoice to:</b>
                                                 </p>
-                                                <p class="text-right">{{$invoice['customer_address']}},<br> {{$invoice['customer_city']}}.</p>
+                                                <p class="text-right"><b>{{$invoice['customer_name']}}</b> <br> {{$invoice['customer_address']}},<br> {{$invoice['customer_city']}}.</p>
                                             </div>
                                         </div>
                                         <div class="table-responsive">

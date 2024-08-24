@@ -48,7 +48,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Company Name</th>
+                                        <th scope="col">Customer</th>
                                         <th scope="col">Area</th>
                                         <th scope="col">City</th>
                                         <th scope="col">State</th>

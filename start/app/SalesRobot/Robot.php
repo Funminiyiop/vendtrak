@@ -235,6 +235,23 @@ class Robot
 		$salesItem = DB::table('sys_sales')->where('order_id', $transID)->get()->toArray();
 		return $salesItem;
 	}
+	
+	public function getAllSalesByAgentID($agent)
+	{
+		$salesItem = DB::table('sys_sales')->where('rep_id', $agent)->get()->toArray();
+		return $salesItem;
+	}
+	
+	public function getAllSalesDetailsByAgentID($agent)
+	{
+		$sales = DB::table('sys_sales')->where('sys_sales.rep_id', $agent)
+		->leftJoin('sys_buyers', 'sys_sales.buyer_id', '=', 'sys_buyers.customer_id')
+		->join('sys_invoices', 'sys_sales.invoice_id', '=', 'sys_invoices.invoice_id')
+		->select('sys_sales.*', 'sys_buyers.agent','sys_buyers.email','sys_buyers.customer_id','sys_buyers.company','sys_invoices.total')
+		->get()->toArray();
+		
+		return $sales;
+	}
 
 	public function getSalesItemByInvoiceID($invoice, $agent, $customer)
 	{

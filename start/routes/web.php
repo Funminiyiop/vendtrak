@@ -49,7 +49,7 @@ Route::get('/invoices', [InvoiceController::class, 'invoices'])->name('invoices'
 Route::post('/viewinvoice', [InvoiceController::class, 'viewInvoice'])->name('viewinvoice');
 
 Route::get('/sales', [InvoiceController::class, 'sales'])->name('sales');
-
+Route::post('/viewsales', [InvoiceController::class, 'viewSales'])->name('viewsales');
 
 
 // Make an order
