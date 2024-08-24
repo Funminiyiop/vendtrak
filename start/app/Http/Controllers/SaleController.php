@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Mail;
 use Auth, Session;
 //use App\Models\Book;
 //use App\Models\Cart;
@@ -244,18 +245,19 @@ class SaleController extends Controller
 			Session::flash('message', 'Something went wrong, try again.');
 			return back(); 
 		} 
-        // get cart details
+
+        // get cart details, total and 4% VAT
         $cartDetails = $robot->getOrderDetailsByAgentAndCustomer(Auth::user()->email, $request['customer'])->toArray();
         $cartTotal = 0;
         foreach ($cartDetails as $item) {
             $cartTotal += $item['subtotal'];
         }
-        
+        $vat =  (3/100) * $cartTotal; // 3 percent of total
         $orderDetails = [	
-            'tID' => 'VENDtrak'.Str::random(12),
+            'tID' => 'VENDtrak'.Str::random(12), // transaction/order ID
             'agent' => Auth::user()->email,
             'customer' => $request->input('customer'), 
-            'invoice' => $robot->generateInvoiceNo(),
+            'invoice' => $robot->generateInvoiceNo(), // Generate invoice No
             'items' => json_encode($cartDetails), 
             'date' => date("Y-m-d"),
             'status' => 'Not Shipped',
@@ -266,17 +268,33 @@ class SaleController extends Controller
             'agent' => Auth::user()->email,
             'customer' => $request->input('customer'), 
             'tID' => $orderDetails['tID'],
-            'total' => $cartTotal,
+            'vat' => $vat,
+            'subtotal' => $cartTotal,
+            'total' => $cartTotal + $vat,
             'paychoice' => $request->input('paymentchoice'),
             'payment' => 'Unpaid',  
             'date' => date("Y-m-d"),
 			'pay_amount' => 0,
 		];
 
-        //dd($request->toArray());
-        //dd('VENDtrak'.Str::random(8));
-        //dd($orderDetails['invoice']);
-        //exit;
+        // --------- Mail Invoice Starts ------------- 
+        $custDetails = $robot->getCustomerDetailsByCustomerID($invoiceDetails['customer'])[0];
+        $getItemOrdered = json_decode($orderDetails['items']);
+        
+        $mailInvoice = [	
+            'date' => date("Y-m-d"),
+            'invoice' => $invoiceDetails['invoice'],
+            'customer_name' => $custDetails->company,
+            'customer_email' => $custDetails->email,
+            'customer_phone' => $custDetails->phone1 .' '. $custDetails->phone2,
+            'customer_address' => $custDetails->h_no .', '. $custDetails->street .' Street, '. $custDetails->area1 .' '. $custDetails->area2 .', '. $custDetails->city .', '. $custDetails->state .', '. $custDetails->country,
+            'items' => $getItemOrdered,
+            'subtotal' => $invoiceDetails['subtotal'],
+            'vat' => $invoiceDetails['vat'],
+            'total' => $invoiceDetails['total'],
+            'status' => $invoiceDetails['payment'],  
+		];
+        
 
 		DB::beginTransaction();
         try
@@ -296,12 +314,22 @@ class SaleController extends Controller
             // if payment option is PAY LATER
             $order->save();
             $invoice->save();
+
+            // send invoice to customer 
+            $mdata = [	
+                'recipient' => $mailInvoice['customer_email'],
+                'invoiceData' => $mailInvoice,
+            ];
+            Mail::send('emails.sendinvoice', $mdata, function($message) use ($mdata){
+                $message->to($mdata['recipient']); 
+                $message->subject('Alert: Invoice Notification'); 
+            });
+
             // delete cart details
             $cartDelete = $robot->deleteCartDetailsByAgentAndCustomer(Auth::user()->email, $request['customer']);
             if($cartDelete === 'unsuccessful'){ 
                 Session::flash('message', 'Failed! We could not process your order'); return redirect('/cart');
             }
-            
             Session::flash('message', 'Success: Order placed successfully!');
             return redirect('/books');
         }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\SaleController; 
 use App\Http\Controllers\BuyerController;
+use App\Http\Controllers\InvoiceController; 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DevelopersignupController;
 use App\Http\Controllers\DeveloperloginController;
@@ -42,6 +43,13 @@ Route::post('/updatecart', [SaleController::class, 'updateCart'])->name('updatec
 Route::post('/removecartitem', [SaleController::class, 'removeCartItem'])->name('removecartitem');
 Route::post('/checkout', [SaleController::class, 'checkout'])->name('checkout');
 Route::post('/placeorder', [SaleController::class, 'postOrderRequest'])->name('placeorder');
+
+
+Route::get('/invoices', [InvoiceController::class, 'invoices'])->name('invoices');
+Route::post('/viewinvoice', [InvoiceController::class, 'viewInvoice'])->name('viewinvoice');
+
+Route::get('/sales', [InvoiceController::class, 'sales'])->name('sales');
+
 
 
 // Make an order

@@ -17,7 +17,9 @@ return new class extends Migration
             $table->foreignId('rep_id');
             $table->foreignId('buyer_id');
             $table->foreignId('order_id');
-            $table->decimal('amount', 15, 2);
+            $table->decimal('subtotal', 15, 2);
+            $table->decimal('vat', 15, 2);
+            $table->decimal('total', 15, 2);
             $table->string('pay_option');
             $table->string('status');
             $table->decimal('pay_amount', 15, 2)->nullable();

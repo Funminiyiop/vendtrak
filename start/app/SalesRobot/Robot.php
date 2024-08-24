@@ -134,6 +134,44 @@ class Robot
 		;
 		return $books;
 	}
+
+	public function getInvoicesByAgent($agent)
+	{
+		$invoice = DB::table('sys_invoices')->where('rep_id', $agent)->get();
+		return $invoice;
+	}
+	
+	public function getInvoicesByAgentInvoice($agent, $invoice)
+	{
+		$invoice = DB::table('sys_invoices')->where('rep_id', $agent)->where('invoice_id', $invoice)->get();
+		return $invoice;
+	}
+	
+	public function getDetailedInvoicesByAgentCustomer($invoice, $agent, $customer)
+	{
+		$custDetails = $this->getCustomerDetailsByCustomerID($customer)[0]; 
+		$invoiceDetails = $this->getInvoicesByAgentInvoice($agent, $invoice)->toArray()[0];
+		//dd($custDetails->company);
+		$getItemOrdered = $this->getSalesItemByInvoiceID($invoice, $agent, $customer)[0];
+		$itemOrdered = json_decode($getItemOrdered->items, true);
+		
+        $detailedInvoice = [	
+            'date' => date("Y-m-d"),
+            'invoice' => $invoiceDetails->invoice_id,
+            'status' => $invoiceDetails->status, 
+            'customer_name' => $custDetails->company,
+            'customer_email' => $custDetails->email,
+            'customer_phone' => $custDetails->phone1 .' '. $custDetails->phone2,
+            'customer_address' => $custDetails->h_no .', '. $custDetails->street .' Street, '. $custDetails->area1 .' '. $custDetails->area2,
+			'customer_city' => $custDetails->city .', '. $custDetails->state .', '. $custDetails->country,
+			'items' => $itemOrdered,
+            'subtotal' => $invoiceDetails->subtotal,
+            'vat' => $invoiceDetails->vat,
+            'total' => $invoiceDetails->total, 
+		];
+		return $detailedInvoice;
+	}
+	
 	
 	public function getAllCustomers()
 	{
@@ -191,6 +229,19 @@ class Robot
 		$customers = DB::table('sys_buyers')->where('agent', $agentEmail)->where('deleted', 0)->get()->toArray();
 		return $customers;
 	}
+	
+	public function getSalesItemByTransID($transID)
+	{
+		$salesItem = DB::table('sys_sales')->where('order_id', $transID)->get()->toArray();
+		return $salesItem;
+	}
+
+	public function getSalesItemByInvoiceID($invoice, $agent, $customer)
+	{
+		$salesItem = DB::table('sys_sales')->where('invoice_id', $invoice)->where('rep_id', $agent)->where('buyer_id', $customer)->get()->toArray();
+		return $salesItem;
+	}
+
 
 	function checkPostAnswer ($data1, $data2, $data3) 
 	{ // $data1 = no1 (Que 1), $data2 = no2 (Que 2), $data3 = qna (Answer)
@@ -571,7 +622,9 @@ class Robot
         $newinvoice->rep_id = $data['agent'];
         $newinvoice->buyer_id = $data['customer'];
         $newinvoice->order_id = $data['tID'];
-        $newinvoice->amount = $data['total'];
+        $newinvoice->subtotal = $data['subtotal'];
+        $newinvoice->vat = $data['vat'];
+        $newinvoice->total = $data['total'];
         $newinvoice->pay_option = $data['paychoice'];
         $newinvoice->status = $data['payment'];
         $newinvoice->invoice_date = $data['date'];
