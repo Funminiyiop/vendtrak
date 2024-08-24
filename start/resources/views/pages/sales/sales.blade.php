@@ -41,13 +41,12 @@
                                 <div class="col-md-6">
                                     <div class="col-md-12 row">
                                         <div class="col-md-6">
-                                            <span class="text-left">Total Sales Amount:</span>
+                                            <span class="text-left"><b>Total Sales Amount:</b></span>
                                         </div>
                                         <div class="col-md-6">
                                             <h4 class="text-right"> N{{number_format($salesamt, 2)}}</h4>
                                         </div>
                                     </div>
-                                    
                                     
                                 </div>
                             </div>

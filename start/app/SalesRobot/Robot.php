@@ -252,13 +252,43 @@ class Robot
 		
 		return $sales;
 	}
+	
+	public function getDetailedSalesDataByAgentCustomerInvoice($agent, $customer, $invoice)
+	{
+		$custDetails = $this->getCustomerDetailsByCustomerID($customer)[0]; 
+		$invoiceDetails = $this->getInvoicesByAgentInvoice($agent, $invoice)->toArray()[0];
+		$getItemOrdered = $this->getSalesItemByInvoiceID($invoice, $agent, $customer)[0];
+		$itemOrdered = json_decode($getItemOrdered->items, true);
+		
+        $detailedSalesData = [	
+            'date' => date("Y-m-d"),
+            'invoice' => $invoiceDetails->invoice_id,
+            'payment_status' => $invoiceDetails->status, 
+            'shipment_status' => $getItemOrdered->status,
+            'customer_name' => $custDetails->company,
+            'customer_email' => $custDetails->email,
+            'customer_phone' => $custDetails->phone1 .' '. $custDetails->phone2,
+            'customer_address' => $custDetails->h_no .', '. $custDetails->street .' Street, '. $custDetails->area1 .' '. $custDetails->area2,
+			'customer_city' => $custDetails->city .', '. $custDetails->state .', '. $custDetails->country,
+			'customer_contact_person' => $custDetails->cpfname .' '. $custDetails->cplname .', ('. $custDetails->cptitle.')',
+			'customer_contact_person_email' => $custDetails->cpemail,
+			'customer_contact_person_phone' => $custDetails->cpphone1 .' '. $custDetails->cpphone2,
+			'items' => $itemOrdered,
+            'subtotal' => $invoiceDetails->subtotal,
+            'vat' => $invoiceDetails->vat,
+            'total' => $invoiceDetails->total, 
+		];
+		return $detailedSalesData;
+	}
+
+
+
 
 	public function getSalesItemByInvoiceID($invoice, $agent, $customer)
 	{
 		$salesItem = DB::table('sys_sales')->where('invoice_id', $invoice)->where('rep_id', $agent)->where('buyer_id', $customer)->get()->toArray();
 		return $salesItem;
 	}
-
 
 	function checkPostAnswer ($data1, $data2, $data3) 
 	{ // $data1 = no1 (Que 1), $data2 = no2 (Que 2), $data3 = qna (Answer)

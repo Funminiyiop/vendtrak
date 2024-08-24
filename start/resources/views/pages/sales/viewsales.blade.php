@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>VENDtrak Book Sales Solutions | Invoice</title>
+    <title>VENDtrak Book Sales Solutions | Sales</title>
     <meta name="description" content="A book sales solution for authors and publishing firms">
     @include('layouts.headlinks')
 
@@ -36,31 +36,30 @@
 
                     <div class="col-md-9 aside">
                         <div class="table-responsive">
-                            <h3>Invoice</h3>
+                            <h3>Sales Record</h3>
                             
                             
                             <div class="card">
                                 <div class="card-body p-50">
                                     <div class="invoice">
-                                        <div class="d-md-flex justify-content-between align-items-center">
-                                            <h2 class="font-weight-800 d-flex align-items-center">
-                                                <!-- img class="m-r-20" src="" alt="image" -->LOGO
-                                            </h2>
-                                            <h3 class="text-xs-left m-b-0">Invoice #{{$invoice['invoice']}}</h3>
-                                        </div>
-                                        <hr class="m-t-b-50">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p>
-                                                    <b>Invoice From:</b>
+                                                <p class="text-left">
+                                                    <b>{{$detailed['customer_name']}}</b> <br> 
+                                                    {{$detailed['customer_address']}},<br> 
+                                                    {{$detailed['customer_city']}}. <br>
+                                                    {{$detailed['customer_phone']}} <br>
+                                                    {{$detailed['customer_email']}} <br>
                                                 </p>
-                                                <p><b>VENDtrak</b> <br> 1, Popoola Street,<br>Bodija, Ibadan, Nigeria.</p>
                                             </div>
                                             <div class="col-md-6">
                                                 <p class="text-right">
-                                                    <b>Invoice to:</b>
+                                                    <b>Contact Person Details: </b><br>
+                                                    {{$detailed['customer_contact_person']}} <br>
+                                                    {{$detailed['customer_contact_person_email']}} <br>
+                                                    {{$detailed['customer_contact_person_phone']}}
+
                                                 </p>
-                                                <p class="text-right"><b>{{$invoice['customer_name']}}</b> <br> {{$invoice['customer_address']}},<br> {{$invoice['customer_city']}}.</p>
                                             </div>
                                         </div>
                                         <div class="table-responsive">
@@ -68,14 +67,14 @@
                                                 <thead>
                                                 <tr>
                                                     <th><b>#</b></th>
-                                                    <th><b>Description</b></th>
+                                                    <th><b>Item(s)</b></th>
                                                     <th class="text-right"><b>Quantity</b></th>
                                                     <th class="text-right"><b>Unit cost</b></th>
                                                     <th class="text-right"><b>Total</b></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <?php $count = 0; foreach($invoice['items'] as $item){ ?>
+                                                <?php $count = 0; foreach($detailed['items'] as $item){ ?>
 
                                                     <tr class="text-right">
                                                         <td class="text-left"><?php echo $count+=1; ?></td>
@@ -86,47 +85,44 @@
                                                     </tr>
 
                                                 <?php } ?>
-                                                <div>
-                                                    
+                                                </tbody>
+                                        
+                                                <hr class="m-t-b-50">
+                                                <tbody>
                                                     <tr>
-                                                        <th><b></b></th>
-                                                        <th><b></b></th>
-                                                        <th class="text-right"><b></b></th>
-                                                        <th class="text-right"><b>Sub - Total:</b></th>
-                                                        <th class="text-right"><b>N{{ number_format($invoice['subtotal'], 2) }}</b></th>
+                                                        <td><b></b></td>
+                                                        <td><b>Invoice No.:</b>  #{{$detailed['invoice']}} </td>
+                                                        <td class="text-right"><b></b></td>
+                                                        <td class="text-right"><b>Sub - Total:</b></td>
+                                                        <td class="text-right"><b>N{{ number_format($detailed['subtotal'], 2) }}</b></td>
                                                     </tr>
                                                     <tr>
-                                                        <th><b></b></th>
-                                                        <th><b></b></th>
-                                                        <th class="text-right"><b></b></th>
-                                                        <th class="text-right"><b>vat (4%): </b></th>
-                                                        <th class="text-right"><b>N{{ number_format($invoice['vat'], 2) }}</b></th>
+                                                        <td><b></b></td>
+                                                        <td><b>Payment Status:</b>  {{$detailed['payment_status']}}</td>
+                                                        <td class="text-right"><b></b></td>
+                                                        <td class="text-right"><b>vat (4%): </b></td>
+                                                        <td class="text-right"><b>N{{ number_format($detailed['vat'], 2) }}</b></td>
                                                     </tr>
                                                     <tr>
-                                                        <th><b></b></th>
-                                                        <th><b></b></th>
-                                                        <th class="text-right"><b></b></th>
-                                                        <th class="text-right"><b>Total:</b></th>
-                                                        <th class="text-right"><b>N{{ number_format($invoice['total'], 2) }}</b></th>
+                                                        <td><b></b></td>
+                                                        <td><b>Shipment Status:</b>  {{$detailed['shipment_status']}}</td>
+                                                        <td class="text-right"><b></b></td>
+                                                        <td class="text-right"><b>Total:</b></td>
+                                                        <td class="text-right"><b>N{{ number_format($detailed['total'], 2) }}</b></td>
                                                     </tr>
-                                                </div>
+                                                
                                                 </tbody>
                                             </table>
                                         </div>
                                         
-                                        <hr class="m-t-b-50">
-                                        <p class="text-center small text-muted  m-t-50">
-                                            <span class="row">
-                                                <span class="col-md-6 offset-3">
-                                                    Please Note: Do not pay to any Sales representative
-                                                </span>
-                                            </span>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
+
+
+
 
                     </div>
                 </div>
