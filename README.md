@@ -1,6 +1,6 @@
 # VENDtrak 
 
-## VENDtrak Documentation
+## VENDtrak Documentation (Will soon be updated)
 
 ## Introduction
 
@@ -198,4 +198,9 @@ This will redirect you to the checkout page with the summary of your order.
 └── Cart                        
 ```
 
+## Authors  
+Funminiyi Peter - [Github](https://github.com/funminiyiop)
+
+## License
+Public Domain. No copy write protection.
 
