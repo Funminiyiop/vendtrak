@@ -64,4 +64,38 @@ Please note: The Author or publisher have to approve your account before you can
 ## project architecture
 
 
+### File architecture
+
+```bash
+├── Index page                
+│
+│
+├── Register                        
+│   
+│
+├── Login                           
+│   
+│
+├── Dashboard                        
+│   ├── Profile     # has update password form               
+│   │ 
+│   │ 
+|   ├── Customers (All Customer)                 
+│   │    ├── View Customer          
+│   │    ├── Edit Customer           
+│   │    └── Delete Customer
+│   │  
+│   │ 
+|   ├── Books (All Books)            
+│   │    ├── View Books          
+│   │    ├── Edit Books           
+│   │    └── Delete Books
+│   │    
+│   ├── Sales History (All Sales Records)            
+│   │    └──  View sales Record   
+│   │
+│   └── Sales Invoices (All Sales Invoices)            
+│        └──  View sales Invoices                       
+```
+
 
