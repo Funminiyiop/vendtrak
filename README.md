@@ -50,8 +50,18 @@ After that, run these commands from terminal:
     php artisan migrate
 	    
 
+## Usage Guide
+### To register:
+--> click on "My Account",
+--> click "Register"
+Input your details and click the "Register" button.
+
+An activation email will be sent to your email which you need to click to make your account active.
+
+Please note: The Author or publisher have to approve your account before you can login.
+
+
 ## project architecture
 
 
-## Usage Guide
 
