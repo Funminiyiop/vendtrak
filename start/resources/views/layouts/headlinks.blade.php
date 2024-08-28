@@ -3,7 +3,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
     <meta name="author" content="FUNMINIYI Peter">
-    <link rel="shortcut icon" type="image/x-icon" href="{{url('./start/public/frame/images/favicon.icon')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{url('./start/public/frame/images/favicon.png')}}">
     <link href="{{url('./start/public/frame/js/plugins.css')}}" rel="stylesheet">
     <link href="{{url('./start/public/frame/css/style-light.css')}}" rel="stylesheet">
     <link href="{{url('./start/public/frame/fonts/icomoon/icomoon.css')}}" rel="stylesheet">

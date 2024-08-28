@@ -5,7 +5,7 @@
                 <div class="col-md-6 col-lg-4 mb-2 mb-lg-0">
                     <div class="footer-block">
                         <div class="footer-logo">
-                            <a href="#"><img src="{{url('/start/public/frame/images/logo-footer-dark.png')}}" class="img-fluid" alt=""></a>
+                            <a href="#"><img src="{{url('/start/public/frame/images/vendtrakLogo2.png')}}" class="img-fluid" alt=""></a>
                         </div>
                         <div class="col-md-left ml-lg-left">
                             <ul class="social-list">

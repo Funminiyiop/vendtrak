@@ -36,7 +36,7 @@
                     </div>
                     <div class="logo-holder">
                         <a href="{{ url('/') }}" class="logo">
-                            <img src="{{url('./start/public/frame/images/logo.png')}}" srcset="{{url('./start/public/frame/images/logo-retina.png 2x')}}" alt="">
+                            <img src="{{url('./start/public/frame/images/vendtrakLogo1.png')}}" srcset="{{url('./start/public/frame/images/vendtrakLogo1.png 2x')}}" alt="">
                         </a>
                     </div>
                     <div class="hdr-mobile-right">
@@ -150,7 +150,7 @@
                     <div class="row">
                         <div class="col-auto logo-holder">
                             <a href="{{ url('/') }}" class="logo">
-                                <img src="{{url('/start/public/frame/images/logo.png')}}" srcset="{{url('/start/public/frame/images/logo.png')}}" alt="">
+                                <img src="{{url('/start/public/frame/images/vendtrakLogo1.png')}}" srcset="{{url('/start/public/frame/images/vendtrakLogo1.png')}}" alt="">
                             </a>
                         </div>
                         <!--navigation-->
@@ -183,7 +183,7 @@
                     <a href="#" class="mobilemenu-toggle show-mobile"><i class="icon icon-menu"></i></a>
                     <div class="col-auto logo-holder-s">
                         <a href="{{ url('/') }}" class="logo">
-                            <img src="{{url('./start/public/frame/images/logo.png')}}" srcset="{{url('./start/public/frame/images/logo-retina.png 2x')}}" alt="">
+                            <img src="{{url('./start/public/frame/images/vendtrakLogo1.png')}}" srcset="{{url('./start/public/frame/images/vendtrakLogo1.png 2x')}}" alt="">
                         </a>
                     </div>
                     <!--navigation-->
