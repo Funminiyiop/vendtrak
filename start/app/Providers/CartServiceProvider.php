@@ -48,12 +48,16 @@ class CartServiceProvider extends ServiceProvider
                 $cartDetails = [];
                 $cartTotal = 0;
                 $cartQty = 0;
+                $total = 0;
+                $vat = 0;
             } else {
                 $cartDetails = $cartDetailss;
                 $cartQty = count($cartDetails);
                 foreach ($cartDetails as $item) {
                     $cartTotal += $item['subtotal'];
                 }
+                $vat =  (4/100) * $cartTotal; // 3 percent of total
+                $total = $cartTotal + $vat;
             }
 
             /*
@@ -71,6 +75,8 @@ class CartServiceProvider extends ServiceProvider
             View::share('cartDetails', $cartDetails);
             View::share('cartTotal', $cartTotal);
             View::share('cartQty', $cartQty);
+            View::share('total', $total);
+            View::share('vat', $vat);
 
         });
 

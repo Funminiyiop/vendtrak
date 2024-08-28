@@ -252,7 +252,7 @@ class SaleController extends Controller
         foreach ($cartDetails as $item) {
             $cartTotal += $item['subtotal'];
         }
-        $vat =  (3/100) * $cartTotal; // 3 percent of total
+        $vat =  (4/100) * $cartTotal; // 3 percent of total
         $orderDetails = [	
             'tID' => 'VENDtrak'.Str::random(12), // transaction/order ID
             'agent' => Auth::user()->email,

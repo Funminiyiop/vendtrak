@@ -92,8 +92,15 @@
                                         
                                     </div>
 
+                                    
                                     <div class="card-total-sm">
-                                        <div class="float-right">Total <span class="card-total-price">N{{ number_format($cartTotal, 2) }}</span></div>
+                                        <div class="float-right">Sub-total: <span class="card-total-price">N{{ number_format($cartTotal, 2) }}</span></div>
+                                    </div>
+                                    <div class="card-total-sm">
+                                        <div class="float-right">Vat (4%): <span class="card-total-price">N{{ number_format($vat, 2) }}</span></div>
+                                    </div>
+                                    <div class="card-total-sm">
+                                        <div class="float-right">Total: <span class="card-total-price">N{{ number_format($total, 2) }}</span></div>
                                     </div>
                                     <div class="mt-2"></div>
                                 </div>

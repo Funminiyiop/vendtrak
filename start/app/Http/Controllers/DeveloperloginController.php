@@ -183,15 +183,15 @@ class DeveloperloginController extends Controller
         $accessLevel = $this->gatePass();
 		if($accessLevel === 'MasterAdmin') {
             // Master Admin Dashboard    	
-            return view('pages.master.dashboard');
+            return view('profile.master.dashboard');
 		}
 		if($accessLevel === 'Admin') {
             // Admin Dashboard
-            return view('pages.admin.dashboard');
+            return view('profile.admin.dashboard');
 		}
 		if($accessLevel === 'SalesRep') {
             // Sales Rep Dashboard
-            return view('pages.rep.dashboard');
+            return view('profile.rep.dashboard');
 		}
 		if($accessLevel === 'PublicUser') {
             Auth::guard('web')->logout();
