@@ -52,14 +52,6 @@ Route::get('/sales', [InvoiceController::class, 'sales'])->name('sales');
 Route::post('/viewsales', [InvoiceController::class, 'viewSales'])->name('viewsales');
 
 
-// Make an order
-//Route::get( '/order/{id}', [SaleController::class, 'order'])->middleware(['auth', 'verified'])->name('order');
-//Route::post( '/order', [SaleController::class, 'postOrderRequest'])->middleware(['auth', 'verified'])->name('postorder');
-
-
-
-
-
 
 
 

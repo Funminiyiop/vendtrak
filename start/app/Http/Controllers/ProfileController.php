@@ -16,6 +16,9 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        //$au = Auth::user()->toArray()['email'];
+        $au = Auth::user()->toArray();
+
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
