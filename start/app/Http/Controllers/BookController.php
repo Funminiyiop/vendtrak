@@ -15,6 +15,23 @@ class BookController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function defaulDB()
+    {
+        $robot = new Robot;
+        $bks = $robot->getAllBooks()->toArray();       
+        if($bks === '' || $bks === [] || $bks === NULL) { 
+            $runDefault = $robot->runDefaulDB(); 
+            if($runDefault === 'unsuccessful'){
+                Session::flash('message', 'Action failed'); 
+                return redirect('/');
+            }
+            Session::flash('message', 'Successful!'); 
+            return redirect('/');
+        } 
+        return redirect('/');
+    }
+
     public function index()
     {
         $robot = new Robot;

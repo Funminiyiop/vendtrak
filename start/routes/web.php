@@ -14,7 +14,9 @@ use App\Http\Controllers\DeveloperloginController;
 
 // Route::get('/', function () { return view('welcome'); });
 // Index Page to view available books for sale
-Route::get('/welcome', function () { return view('welcome'); });
+// Route::get('/welcome', function () { return view('welcome'); });
+
+Route::get('/rundefault', [BookController::class, 'defaulDB'])->name('rundefault');
 
 Route::get('/', [BookController::class, 'index'])->name('index');
 
